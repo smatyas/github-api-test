@@ -8,6 +8,10 @@ github-api-test
         _This includes public and private repositories that you can access through any organization membership as well._
     - listing all pull requests accessible by your user. 
         _This includes public and private repositories that you can access through any organization membership as well._
+    - listing (non-review) comments on issues / pull requests accessible by your user. 
+        _This includes public and private repositories that you can access through any organization membership as well._
+    - adding (non-review) comments on issues / pull requests accessible by your user. 
+        _This includes public and private repositories that you can access through any organization membership as well._
     - listing all deploy keys accessible by your user. 
         _The user has to be the owner/admin of the repo._
     - adding deploy keys for the repositories the user can access. 
@@ -39,4 +43,14 @@ github-api-test
 5. List pull requests for a repository
     ```
     bin/console github:pr:list octocat/Hello-World
+    ```
+
+6. List (non-review) comments of an issue / pull request
+    ```
+    bin/console github:pr:comments octocat/Hello-World 1
+    ```
+
+7. Add a new (non-review) comment to an issue / pull request
+    ```
+    bin/console github:pr:comment-add octocat/Hello-World 1 "New comment."
     ```
