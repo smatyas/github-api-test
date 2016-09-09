@@ -12,29 +12,22 @@
 namespace AppBundle\Command;
 
 use Github\Api\CurrentUser;
-use Github\Client;
 use Github\ResultPager;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class RepoListCommand extends ContainerAwareCommand
+class RepoListCommand extends AbstractGithubCommand
 {
     protected function configure()
     {
-        $this->setName('repo:list')
+        $this->setName('github:repo:list')
             ->setDescription('List the repositories.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $client = new Client();
-        $client->authenticate(
-            $this->getContainer()->getParameter('github_token'),
-            null,
-            Client::AUTH_HTTP_TOKEN
-        );
+        $client = $this->getAuthenticatedClient();
 
         /** @var CurrentUser $currentUser */
         $currentUser = $client->api('me');
