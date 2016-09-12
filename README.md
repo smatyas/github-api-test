@@ -22,6 +22,10 @@ github-api-test
     - showing the combined ref status reports for the repositories the user can access.
         (Actually the repo:status scope would be enough.)
         _The user has to have pull access for the repo._
+    - listing all repository webhooks accessible by your user. 
+        _The user has to be the owner/admin of the repo._
+    - adding new repository webhook accessible by your user. 
+        _The user has to be the owner/admin of the repo._
  
 
 2. Place your secret token to `app/config/parameters.yml`
@@ -78,3 +82,16 @@ github-api-test
     ```
     bin/console github:pr:merge octocat/Hello-World 2 asdf1234 "merge to master by API"
     ```
+
+11. List webhooks for a repository
+    ```
+    bin/console github:webhook:list octocat/Hello-World
+    ```
+
+12. Add a new webhook for a repository
+    ```
+    bin/console github:webhook:add octocat/Hello-World '{"content_type":"json","insecure_ssl":"1","url":"https:\/\/example.com\/test"}' --event=pull_request --event=push
+    ```
+
+13. Test configured webhooks
+    You can start the test webserver: `bin/console server:run` and create a public tunnel to it i.e. with `ngrok`. If you set up the webhook properly (url like https://39bd23df.ngrok.io/webhook), you'll have the incoming data in the `DefaultController`. 
