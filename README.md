@@ -16,6 +16,12 @@ github-api-test
         _The user has to be the owner/admin of the repo._
     - adding deploy keys for the repositories the user can access. 
         _The user has to be the owner/admin of the repo._
+    - adding commit status reports for the repositories the user can access.
+        (Actually the repo:status scope would be enough.)
+        _The user has to have push access for the repo._
+    - showing the combined ref status reports for the repositories the user can access.
+        (Actually the repo:status scope would be enough.)
+        _The user has to have pull access for the repo._
  
 
 2. Place your secret token to `app/config/parameters.yml`
@@ -53,4 +59,17 @@ github-api-test
 7. Add a new (non-review) comment to an issue / pull request
     ```
     bin/console github:pr:comment-add octocat/Hello-World 1 "New comment."
+    ```
+
+8. Add a new status report to a commit
+    The user needs push access to the repo.
+    To update a previous status, use the same context.
+    ```
+    bin/console github:commit:status-add octocat/Hello-World asdf1234 pending --context="ci/jenkins" --target-url=http://ci.example.com/user/repo/build/sha --description="30% - building..."
+    ```
+
+9. Get the combined Status for a specific Ref
+    The user needs pull access to the repo.
+    ```
+    bin/console github:ref:combined-status octocat/Hello-World ref
     ```
