@@ -73,3 +73,8 @@ github-api-test
     ```
     bin/console github:ref:combined-status octocat/Hello-World ref
     ```
+
+10. Merge a pull request
+    ```
+    bin/console github:pr:merge octocat/Hello-World 2 asdf1234 "merge to master by API"
+    ```
